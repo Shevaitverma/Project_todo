@@ -7,7 +7,7 @@
 .main_div {
   width: 100%;
   height: 100vh;
-  background: rgb(59, 49, 116);
+  background: linear-gradient(to bottom right, #4f1dc4 0%, #3aa8cc 100%);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -27,7 +27,7 @@
 h1{
   color: white;
   background: transparent;
-  background-color: #316786;
+  background-color: #2b3e91;
   padding: 6px 0 2px 0;
   margin-bottom: 10px;
   box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
@@ -42,7 +42,7 @@ input{
   font-size: 20px;
   font-weight: 500;
   width: 60%;
-  border-bottom: 2px solid #316786;
+  border-bottom: 2px solid #2b3e91;
   outline: none;
 }
 
@@ -50,7 +50,7 @@ button{
   min-height: 20px;
   width: 50px;
   border-radius: 50%;
-  background-color: #316786;
+  background-color: #2b3e91;
   color: #fff;
   font-size: 35px;
   border: none;
@@ -62,7 +62,7 @@ button{
   min-height: 20px;
   width: 25px;
   border-radius: 50%;
-  background-color: #316786;
+  background-color: #2b3e91;
   color: #fff;
   font-size: 20px;
   border: none;
@@ -74,7 +74,7 @@ button{
   min-height: 20px;
   width: 25px;
   border-radius: 50%;
-  background-color: #316786;
+  background-color: #2b3e91;
   color: #fff;
   font-size: 20px;
   border: none;
