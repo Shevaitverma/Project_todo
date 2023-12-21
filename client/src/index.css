@@ -1,158 +1,68 @@
-*{
-  box-sizing: border-box;
-  padding: 0%;
-  margin: 0%;
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.main_div {
-  width: 100%;
-  height: 100vh;
-  background: linear-gradient(to bottom right, #4f1dc4 0%, #3aa8cc 100%);
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
 }
 
-.Centre_div{
-  margin: 10px;
-  width: 80vh;
-  height: 80%;
-  background-color: #f4f4f4;
-  box-shadow: 5px 5px 25px -5px rgb(0, 0, 0, 0.5);
-  border-radius: 12px;
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
 }
 
-h1{
-  color: white;
-  background: transparent;
-  background-color: #2b3e91;
-  padding: 6px 0 2px 0;
-  margin-bottom: 10px;
-  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
-}
-
-input{
-  text-align: center;
-  height: 30px;
-  top: 10px;
-  border: none;
-  background: transparent;
-  font-size: 20px;
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
   font-weight: 500;
-  width: 60%;
-  border-bottom: 2px solid #2b3e91;
-  outline: none;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
 }
 
-button{
-  min-height: 20px;
-  width: 50px;
-  border-radius: 50%;
-  background-color: #2b3e91;
-  color: #fff;
-  font-size: 35px;
-  border: none;
-  outline: none;
-  margin-left: 10px;
-  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
 }
-.delete {
-  min-height: 20px;
-  width: 25px;
-  border-radius: 50%;
-  background-color: #2b3e91;
-  color: #fff;
-  font-size: 20px;
-  border: none;
-  outline: none;
-  margin-left: 10px;
-  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
-}
-.Edit_button{
-  min-height: 20px;
-  width: 25px;
-  border-radius: 50%;
-  background-color: #2b3e91;
-  color: #fff;
-  font-size: 20px;
-  border: none;
-  outline: none;
-  margin-left: 10px;
-  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
-}
-
-.close_button{
-  width: 50px;
-  height: 50px;
-  border-radius: 0px;
-  background-color: rgb(202, 50, 50);
-}
-.close_button:hover {
-  background-color: rgb(175, 37, 37);
-}
-
-.Edit_footer{
-  width: 50px;
-  border-radius: 12px;
-  background-color: #eebe3a;
-  color: rgb(0, 0, 0);
-  font-size: 20px;
-  border: none;
-  outline: none;
-  margin-left: 10px;
-  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
-}
-.Edit_footer:hover {
-  background-color: #eebe3a;
-}
-
-.Close_footer{
-  width: 70px;
-  border-radius: 12px;
-  background-color: #e43636;
-  color: rgb(238, 238, 238);
-  font-size: 20px;
-  border: none;
-  outline: none;
-  margin-left: 10px;
-  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
-}
-.Close_footer:hover {
-  background-color: #e43636;
-}
-
-button:hover{
-  background-color: #1cb931;
-}
-.delete:hover{
-  background-color: #db1a1a;
-}
-
-.Edit_button:hover{
-  background-color: #dbd81a;
-}
-
-.task_list table{
-  margin-left: 10vh;
-  margin: auto;
-  margin-top: 25px;
-  font-family: 'Open Sans', sans-serif;
-  text-align: left;
-  background: transparent;
-  font-size: 18px;
-  font-weight: 500;
-  justify-content: center;
-  align-items: center;
-}
-
-th {
-  padding-left: 10px;
-  padding-bottom: 15px;
-}
-
-td{
-  padding-left: 10px;
-}
-
