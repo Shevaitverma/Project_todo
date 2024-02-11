@@ -4,9 +4,6 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 // function to generate jwt token.
-const generateToken = (id) => {
-    return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: "1d"})
-};
 
 //.............. Register User................
 const registerUser = asyncHandler(async (req, res) =>{
@@ -40,19 +37,7 @@ const registerUser = asyncHandler(async (req, res) =>{
         password
     })
 
-
-    // generate tokken
-    const token = generateToken(user._id);
-
     
-    // send HTTP-only cookie
-    res.cookie("token", token, {
-        path: '/',
-        httpOnly: true,
-        expires: new Date(Date.now() + 1000 * 864000), // 1 day
-        sameSite: "none", // it means we have different url for frontend and backend.
-        secure: true // if we use https 
-    })
     if(user){
         const {_id, name, email} = user
         res.status(201).json({
