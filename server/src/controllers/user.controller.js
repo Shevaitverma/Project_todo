@@ -159,9 +159,43 @@ const getCurrentUser = asyncHandler(async(req, res)=>{
     )
 })
 
+// change password  
+const changeCurrentPassword = asyncHandler(async(req, res)=>{
+    // get data from body 
+    const {oldPassword, newPassword} = req.body;
+    if (!oldPassword || !newPassword) {
+        throw new ApiError(400, "Both oldPassword and newPassword are required");
+    }
+
+    // get user data 
+    const user = await User.findById(req.user?._id);
+    
+    // check if password is correct
+    const checkPass = await user.isPasswordCorrect(oldPassword);
+    if(!checkPass){
+        throw new ApiError(401, "Password is incorrect")
+    }
+
+    // set new password 
+    user.password = newPassword;
+    await user.save({validateBeforeSave: false})
+
+    // returning response
+    return res.status(200)
+    .json(
+        new ApiResponse(
+            200,
+            {},
+            "Password changed successfully"
+        )
+    )
+})
+
+
 export {
     registerUser,
     loginUser,
     logoutUser,
-    getCurrentUser
+    getCurrentUser,
+    changeCurrentPassword
 }
