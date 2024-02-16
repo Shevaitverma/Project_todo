@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import { User } from "../models/auth/user.model.js";
 import {ApiError} from "../utils/ApiError.js";
 import {ApiResponse} from "../utils/ApiResponse.js";
+import { Todo } from "../models/app/todo.model.js";
 
 
 // generate access and refresh tokens
@@ -243,17 +244,15 @@ const deleteUser = asyncHandler(async (req, res) => {
         throw new ApiError(401, "User not authenticated");
     }
 
-    // Find and delete the user by ID
-    const deletedUser = await User.findByIdAndDelete(userId).select("-password -refreshToken");// select field ensure that sensitive information is not given to anyone 
+    // Delete all Todos associated with the user
+    await Todo.deleteMany({ createdBy: userId });
 
-    // Check if the user was found and deleted
-    if (!deletedUser) {
-        throw new ApiError(404, "User not found");
-    }
+    // Find and delete the user by ID
+    await User.findByIdAndDelete(userId).select("-password -refreshToken");// select field ensure that sensitive information is not given to anyone 
 
     // Respond with a success message
     return res.status(200).json(
-        new ApiResponse(200, {}, "User deleted successfully")
+        new ApiResponse(200, {}, "User account deleted successfully")
     );
 });
 
