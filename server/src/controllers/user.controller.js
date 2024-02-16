@@ -38,6 +38,11 @@ const registerUser = asyncHandler(async(req, res)=> {
         throw new ApiError(400, "All fields are required")
     }
 
+    // check if password is atleast 8 characterse long 
+    if(password.length < 8){
+        throw new ApiError(400, "Password must be 8 characters long")
+    }
+
     // check if usr already exists - username and email
     const ifExist = await User.findOne({
         $or: [{username}, {email}]
@@ -101,7 +106,7 @@ const loginUser = asyncHandler(async(req, res)=>{
             secure: true
         }
         return res
-        .status(201)
+        .status(200)
         .cookie("accessToken", accessToken, options)
         .cookie("refreshToken", refreshToken, options)
         .json(
@@ -166,6 +171,11 @@ const changeCurrentPassword = asyncHandler(async(req, res)=>{
     if (!oldPassword || !newPassword) {
         throw new ApiError(400, "Both oldPassword and newPassword are required");
     }
+    
+    // check if password is atleast 8 characterse long 
+    if(newPassword.length < 8){
+        throw new ApiError(400, "Password must be 8 characters long")
+    }
 
     // get user data 
     const user = await User.findById(req.user?._id);
@@ -191,11 +201,44 @@ const changeCurrentPassword = asyncHandler(async(req, res)=>{
     )
 })
 
+// update account details...
+const updateAccountDetails = asyncHandler(async(req, res)=> {
+    
+    // get data from the body 
+    const {fullName, email} = req.body;
+
+    if(!fullName || !email){
+        throw new ApiError(401, "All fields are required");
+    }
+
+    // update user 
+    const user = await User.findByIdAndUpdate(
+        req.user?._id,
+        {
+            $set: {
+                fullName,
+                email
+            }
+        },
+        { new: true} // This ensures that updated document is returned
+    ).select("-password")
+    if(!user){
+        throw new ApiError(401, "Something went wrong while updating")
+    }
+    // const userobj = user.toObject(); // convert to pain javascript object 
+    // console.log("updated user: ", userobj);
+
+    return res.status(200)
+    .json(
+        new ApiResponse(200, user, "Account details updated successfully")
+    )
+})
 
 export {
     registerUser,
     loginUser,
     logoutUser,
     getCurrentUser,
-    changeCurrentPassword
+    changeCurrentPassword,
+    updateAccountDetails
 }
