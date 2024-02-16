@@ -222,11 +222,10 @@ const updateAccountDetails = asyncHandler(async(req, res)=> {
         },
         { new: true} // This ensures that updated document is returned
     ).select("-password")
+
     if(!user){
-        throw new ApiError(401, "Something went wrong while updating")
+        throw new ApiError(401, "User not found or not authenticated")
     }
-    // const userobj = user.toObject(); // convert to pain javascript object 
-    // console.log("updated user: ", userobj);
 
     return res.status(200)
     .json(
