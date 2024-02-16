@@ -3,6 +3,7 @@ import { User } from "../models/auth/user.model.js";
 import {ApiError} from "../utils/ApiError.js";
 import {ApiResponse} from "../utils/ApiResponse.js";
 import { Todo } from "../models/app/todo.model.js";
+import jwt from 'jsonwebtoken';
 
 
 // generate access and refresh tokens
@@ -234,6 +235,63 @@ const updateAccountDetails = asyncHandler(async(req, res)=> {
     )
 })
 
+// refresh token 
+const refreshAccessToken = asyncHandler(async (req, res) => {
+    // Extract refresh token from cookies or request body
+    const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken;
+
+    // Check if refresh token is provided
+    if (!incomingRefreshToken) {
+        throw new ApiError(401, "Unauthorized request");
+    }
+
+    try {
+        // Verify the incoming refresh token
+        const decodedToken = jwt.verify(
+            incomingRefreshToken,
+            process.env.REFRESH_TOKEN_SECRET
+        );
+
+        // Find the user associated with the refresh token
+        const user = await User.findById(decodedToken?._id);
+
+        // Check if the user exists
+        if (!user) {
+            throw new ApiError(401, "Invalid refresh token");
+        }
+
+        // Check if the incoming refresh token matches the stored one
+        if (incomingRefreshToken !== user?.refreshToken) {
+            throw new ApiError(401, "Refresh token is expired or used");
+        }
+
+        // Set cookie options
+        const options = {
+            httpOnly: true,
+            secure: true,
+        };
+
+        // Generate new access and refresh tokens
+        const { accessToken, newRefreshToken } = await generateAccessAndRefereshTokens(user._id);
+
+        // Set the new tokens in the response cookies
+        return res
+            .status(200)
+            .cookie("accessToken", accessToken, options)
+            .cookie("refreshToken", newRefreshToken, options)
+            .json(
+                new ApiResponse(
+                    200, 
+                    { accessToken, newRefreshToken }, 
+                    "Access token refreshed"
+                )
+            );
+    } catch (error) {
+        throw new ApiError(401, error?.message || "Invalid refresh token");
+    }
+});
+
+
 // Delete user controller
 const deleteUser = asyncHandler(async (req, res) => {
     // Get the user ID from the authenticated user
@@ -263,5 +321,6 @@ export {
     getCurrentUser,
     changeCurrentPassword,
     updateAccountDetails,
+    refreshAccessToken,
     deleteUser
 }
