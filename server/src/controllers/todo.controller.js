@@ -105,7 +105,6 @@ const updateTodo = asyncHandler(async (req, res) => {
         throw new ApiError(400, "you don't have permission to update the todo")
     }
 
-
     // update todo
     if (title) {
         todo.title = title;
@@ -125,9 +124,45 @@ const updateTodo = asyncHandler(async (req, res) => {
     );
 });
 
+// delete Todo
+const deleteTodo = asyncHandler(async(req, res)=> {
+    const todoId = req.params.id
+
+    // find todo
+    const todo = await Todo.findById(todoId)
+    if(!todo){
+        throw new ApiError(400, "Todo not found")
+    }
+
+    // ensure that todo owner is the one who delete todo
+    const todoMaker = todo.createdBy.equals(req.user._id);
+    if(!todoMaker){
+        throw new ApiError(400, "You don't have permission to delete this todo")
+    }
+
+    // delete todo
+    await Todo.findByIdAndDelete(todoId);
+
+    // Remove the todo ID from the user's todos array
+    await User.findByIdAndUpdate(
+        req.user._id,
+        { 
+            $pull: { 
+                todos: todoId 
+            } 
+        },
+        { new: true } // To get the updated user document
+    );
+
+    return res.status(200).json(
+        new ApiResponse(200, {}, "Todo successfully deleted")
+    )
+})
+
 export {
     createTodo,
     getTodos,
     getTodo,
-    updateTodo
+    updateTodo,
+    deleteTodo
 }
