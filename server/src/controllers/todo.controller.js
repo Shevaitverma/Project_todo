@@ -78,10 +78,56 @@ const getTodo = asyncHandler(async (req, res) => {
     }
   
     return res.status(200).json(new ApiResponse(200, todo, "Todo fetched successfully"));
-  });
+});
+
+// update todo
+const updateTodo = asyncHandler(async (req, res) => {
+
+    const { title, description, completed } = req.body;
+
+    // Check if at least one field is provided for update
+    if (!title && !description && completed === undefined) {
+        throw new ApiError(400, "At least one field (title, description, completed) is required for update");
+    }
+    
+    // find todo first
+    const todoId = req.params.id;
+    const todo = await Todo.findById(todoId)
+    if(!todo){
+        throw new ApiError(404, "Todo not found");
+    }
+
+    // ensure that the user making the request is the one who created the todo
+    const todoMaker = todo.createdBy.equals(
+        req.user._id
+    )
+    if(!todoMaker){
+        throw new ApiError(400, "you don't have permission to update the todo")
+    }
+
+
+    // update todo
+    if (title) {
+        todo.title = title;
+    }
+
+    if (description) {
+        todo.description = description;
+    }
+
+    if (completed !== undefined) {
+        todo.completed = completed;
+    }
+    await todo.save();
+
+    return res.status(200).json(
+        new ApiResponse(200, todo, "Todo updated successfully")
+    );
+});
 
 export {
     createTodo,
     getTodos,
-    getTodo
+    getTodo,
+    updateTodo
 }
