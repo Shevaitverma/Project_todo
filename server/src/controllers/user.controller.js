@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 
 
 // generate access and refresh tokens
-const generateAccessAndRefereshTokens = async(userId) =>{
+const generateAccessAndRefreshTokens = async(userId) =>{
     try {
         const user = await User.findById(userId)
         if(!user){
@@ -99,7 +99,7 @@ const loginUser = asyncHandler(async(req, res)=>{
 
     // access and refresh token 
     try {
-        const {accessToken, refreshToken} = await generateAccessAndRefereshTokens(user._id)
+        const {accessToken, refreshToken} = await generateAccessAndRefreshTokens(user._id)
         const loggedInUser = await User.findById(user._id).select("-password -refreshToken");
     
         // send cookie 
@@ -272,7 +272,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
         };
 
         // Generate new access and refresh tokens
-        const { accessToken, newRefreshToken } = await generateAccessAndRefereshTokens(user._id);
+        const { accessToken, newRefreshToken } = await generateAccessAndRefreshTokens(user._id);
 
         // Set the new tokens in the response cookies
         return res
