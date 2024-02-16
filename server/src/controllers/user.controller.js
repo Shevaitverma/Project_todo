@@ -233,11 +233,36 @@ const updateAccountDetails = asyncHandler(async(req, res)=> {
     )
 })
 
+// Delete user controller
+const deleteUser = asyncHandler(async (req, res) => {
+    // Get the user ID from the authenticated user
+    const userId = req.user?._id;
+
+    // Check if the user ID is available
+    if (!userId) {
+        throw new ApiError(401, "User not authenticated");
+    }
+
+    // Find and delete the user by ID
+    const deletedUser = await User.findByIdAndDelete(userId).select("-password -refreshToken");// select field ensure that sensitive information is not given to anyone 
+
+    // Check if the user was found and deleted
+    if (!deletedUser) {
+        throw new ApiError(404, "User not found");
+    }
+
+    // Respond with a success message
+    return res.status(200).json(
+        new ApiResponse(200, {}, "User deleted successfully")
+    );
+});
+
 export {
     registerUser,
     loginUser,
     logoutUser,
     getCurrentUser,
     changeCurrentPassword,
-    updateAccountDetails
+    updateAccountDetails,
+    deleteUser
 }
