@@ -15,22 +15,33 @@ Project_todo is a full-stack application built for managing user accounts and To
 
 ## Installation
 1. Clone the repository:
-    
+
+    ```bash
+    git clone https://github.com/Shevaitverma/Project_todo.git
+    ```
+
 2. Navigate to the project directory:
 
-   ```cd Project_todo```
-   ```cd server```
+    ```bash
+    cd Project_todo
+    cd server
+    ```
 
 3. Install dependencies:
 
-    ```npm install```
+    ```bash
+    npm install
+    ```
 
 4. Set up environment variables:
+
     - Create a `.env` file based on `.env.example` and provide the required values.
 
 5. Run the application:
 
-    ```npm run dev```
+    ```bash
+    npm run dev
+    ```
 
 ## Usage
 
