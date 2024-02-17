@@ -1,11 +1,15 @@
-### New version data
+# Project Todo
+Project_todo is a full-stack application built for managing user accounts and Todo's. It provides user registration, authentication, and CRUD operations for to-dos.
 
-This is the version update for the todo list application that I have creted in my 3rd year of the collage while doing a internship training.
+### Technologies Used
 
+## Backend:
+Node.js
+Express.js
+MongoDB (mongoose)
+JSON Web Tokens (JWT)
+Express Async Handler
+Other npm packages as per the project needs
 
-#### Updations - Client side
-react => 17.0.2 --> 18.2.0
-
-
-#### Updations - Server side 
-database PSQL --> mongoDB
+## Frontend: 
+React.js 
