@@ -1,6 +1,14 @@
 # Project Todo
 Project_todo is a full-stack application built for managing user accounts and Todo's. It provides user registration, authentication, and CRUD operations for to-dos.
 
+## Table of Contents
+
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Endpoints](#endpoints)
+- [API Documentation](#api-documentation)
+
 ## Technologies Used
 - **Backend:**
   - Node.js
@@ -47,3 +55,25 @@ Project_todo is a full-stack application built for managing user accounts and To
 
 - The application provides API endpoints for user registration, login, to-do management, and more.
 - Ensure that you have MongoDB installed and running.
+
+## Endpoints
+
+- **User Authentication:**
+  - `POST /api/users/register` - Register a new user.
+  - `POST /api/users/login` - Log in an existing user.
+  - `POST /api/users/logout` - Log out the currently authenticated user.
+  - `GET /api/users/get-user` - Get information about the currently authenticated user.
+
+
+- **To-Do Management:**
+  - `GET /api/todos` - Get all to-dos for the currently authenticated user.
+  - `GET /api/todos/:id` - Get one to-do by ID.
+  - `POST /api/todos` - Create a new to-do.
+  - `PUT /api/todos/:id` - Update a to-do by ID.
+  - `DELETE /api/todos/:id` - Delete a to-do by ID.
+
+- **User Management:**
+  - `POST /api/users/refresh-token` - refresh access token of the currently authenticated user.
+  - `DELETE /api/users/delete-account` - delete account of currently authenticated user.
+  - `POST /api/users/change-password` - Change the password of the currently authenticated user.
+  - `PATCH /api/users/update-account` - update account of the currently authenticated user.
