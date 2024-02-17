@@ -29,9 +29,15 @@ Project_todo is a full-stack application built for managing user accounts and To
 
 2. Navigate to the project directory:
 
+  - For server
     ```bash
     cd Project_todo
     cd server
+    ```
+  - For client
+    ```bash
+    cd Project_todo
+    cd client
     ```
 
 3. Install dependencies:
