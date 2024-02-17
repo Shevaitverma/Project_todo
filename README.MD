@@ -7,7 +7,6 @@ Project_todo is a full-stack application built for managing user accounts and To
 - [Installation](#installation)
 - [Usage](#usage)
 - [Endpoints](#endpoints)
-- [API Documentation](#api-documentation)
 
 ## Technologies Used
 - **Backend:**
