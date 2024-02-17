@@ -18,19 +18,19 @@ Project_todo is a full-stack application built for managing user accounts and To
     
 2. Navigate to the project directory:
 
-    `cd Project_todo`
-    `cd server`
+   ```cd Project_todo```
+   ```cd server```
 
 3. Install dependencies:
 
-    `npm install`
+    ```npm install```
 
 4. Set up environment variables:
     - Create a `.env` file based on `.env.example` and provide the required values.
 
 5. Run the application:
 
-    `npm run dev`   
+    ```npm run dev```
 
 ## Usage
 
