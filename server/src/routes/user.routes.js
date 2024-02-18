@@ -10,7 +10,7 @@ router.route("/logout").post(verifyJwt, logoutUser);
 router.route("/get-user").get(verifyJwt, getCurrentUser);
 router.route("/change-password").post(verifyJwt, changeCurrentPassword);
 router.route("/update-account").patch(verifyJwt, updateAccountDetails);
-router.route("/refresh-token").post(verifyJwt, refreshAccessToken);
+router.route("/refresh-token").post(refreshAccessToken);
 router.route("/delete-account").delete(verifyJwt, deleteUser);
 
 export default router;
