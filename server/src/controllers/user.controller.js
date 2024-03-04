@@ -209,30 +209,31 @@ const updateAccountDetails = asyncHandler(async(req, res)=> {
     // get data from the body 
     const {fullName, email} = req.body;
 
-    if(!fullName || !email){
-        throw new ApiError(401, "All fields are required");
+    if(!fullName && !email){
+        return res.json(
+            new ApiResponse(200, req.user, "here is your details")
+        )
     }
-
-    // update user 
-    const user = await User.findByIdAndUpdate(
-        req.user?._id,
-        {
-            $set: {
-                fullName,
-                email
-            }
-        },
-        { new: true} // This ensures that updated document is returned
-    ).select("-password")
-
-    if(!user){
-        throw new ApiError(401, "User not found or not authenticated")
+    else{
+        // update user 
+        const user = await User.findByIdAndUpdate(
+            req.user?._id,
+            {
+                $set: {
+                    fullName,
+                    email
+                }
+            },
+            { new: true} // This ensures that updated document is returned
+        ).select("-password -refreshToken")
+        if(!user){
+            throw new ApiError(401, "User not found or not authenticated")
+        }
+        return res.status(200)
+        .json(
+            new ApiResponse(200, user, "Account details updated successfully")
+            )
     }
-
-    return res.status(200)
-    .json(
-        new ApiResponse(200, user, "Account details updated successfully")
-    )
 })
 
 // refresh token 
