@@ -265,7 +265,8 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
             throw new ApiError(401, "Refresh token is expired or used");
         }
 
-        // Set cookie options
+        
+        // Set new cookie options
         const options = {
             httpOnly: true,
             secure: true,
@@ -273,6 +274,15 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 
         // Generate new access and refresh tokens
         const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id);
+
+        // update token in the database also 
+        await User.findByIdAndUpdate(
+            req.user?._id,
+            {
+                $set: { refreshToken }
+            },
+            { new: true} // This ensures that updated document is returned
+        )
 
         // Set the new tokens in the response cookies
         return res
@@ -282,7 +292,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
             .json(
                 new ApiResponse(
                     200, 
-                    { accessToken, refreshToken }, 
+                    { user, accessToken, newRefreshToken:refreshToken }, 
                     "Access token refreshed"
                 )
             );
