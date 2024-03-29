@@ -1,20 +1,39 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
+  const history = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Add your login logic here
-    console.log(formData);
+    try {
+      const response = await fetch("http://localhost:4001/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (!response.ok) {
+        throw new Error("Login failed, Try again");
+      }
+      const data = await response.json();
+      // Assume response containes authentication token
+      localStorage.setItem("token", data.token);
+      history("/todo-page");
+    } catch (error) {
+      console.error("Login error: ", error);
+    }
   };
 
   return (
@@ -22,14 +41,14 @@ const LoginForm = () => {
       <h2 className="text-2xl font-bold mb-4">Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="username" className="block text-gray-700">
-            Username
+          <label htmlFor="email" className="block text-gray-700">
+            email
           </label>
           <input
             type="text"
-            id="username"
-            name="username"
-            value={formData.username}
+            id="email"
+            name="email"
+            value={formData.email}
             onChange={handleChange}
             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-slate-100 text-[#111827]"
             required
