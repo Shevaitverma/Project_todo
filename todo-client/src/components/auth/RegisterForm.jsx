@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -7,16 +8,31 @@ const RegistrationForm = () => {
     username: "",
     password: "",
   });
+  const history = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your registration logic here
-    console.log(formData);
+    // registration logic here
+    try {
+      const response = await fetch("http://localhost:4001/api/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (!response.ok) {
+        throw new Error("Registration Failed, try again");
+      }
+      history("/login");
+    } catch (error) {
+      console.error("Registration error:", error);
+    }
   };
 
   return (

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { setIsLogged } from "../../app/store";
+import { useDispatch } from "react-redux";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -7,6 +9,7 @@ const LoginForm = () => {
     password: "",
   });
   const history = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,7 +18,7 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your login logic here
+    // login logic here
     try {
       const response = await fetch("http://localhost:4001/api/users/login", {
         method: "POST",
@@ -28,8 +31,13 @@ const LoginForm = () => {
         throw new Error("Login failed, Try again");
       }
       const data = await response.json();
+      // setting isloggedIn state to true so that we can perform action which needs authentication first
+      dispatch(setIsLogged(true));
       // Assume response containes authentication token
-      localStorage.setItem("token", data.token);
+      // console.log("response data: ", data);
+      // console.log("token value : ", data.data.accessToken);
+      localStorage.setItem("token", data.data.accessToken);
+
       history("/todo-page");
     } catch (error) {
       console.error("Login error: ", error);
