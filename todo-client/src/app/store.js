@@ -17,9 +17,9 @@ const appSlice = createSlice({
     getTodos(state, action) {
       state.todos = action.payload;
     },
-    getTodo: (state, action) => {},
-    updateTodo: (state, action) => {},
-    removeTodo: (state, action) => {},
+    // getTodo: (state, action) => {},
+    // updateTodo: (state, action) => {},
+    // removeTodo: (state, action) => {},
   },
 });
 
