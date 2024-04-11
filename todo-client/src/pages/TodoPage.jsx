@@ -10,26 +10,10 @@ export default function TodoPage() {
   // console.log(todos);
 
   useEffect(() => {
-    const fetchTodos = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:4001/api/todos", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (!response.ok) {
-          throw new Error("Failed to fetch todos");
-        }
-        const data = await response.json();
-        dispatch(getTodos(data));
-        // console.log(data);
-      } catch (error) {
-        console.error("Error fetching todos:", error);
-      }
-    };
+      
 
-    fetchTodos();
+    // dispatch(getTodos(data));
+    // fetchTodos();
   }, [dispatch]);
   console.log(todos);
 
