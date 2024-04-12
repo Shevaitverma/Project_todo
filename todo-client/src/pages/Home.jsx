@@ -7,7 +7,7 @@ const Home = () => {
         <h1 className="text-3xl font-bold mb-4">Welcome to Your Todo App</h1>
         <p className="text-lg text-[#9f4db8]">
           This is a simple todo application where you can keep track of your
-          tasks. Get started by logging in or registering if you haven't
+          tasks. Get started by logging in or registering if you have not
           already.
         </p>
       </div>
