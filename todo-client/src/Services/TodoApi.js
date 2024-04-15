@@ -17,6 +17,30 @@ const fetchTodos = async () => {
     }
 }
 
+// function to update todo 
+
+
+// Function to delete todo 
+const deleteTodo = async(id) => {
+    try {
+        const token = localStorage.getItem("token");
+        const response = await fetch(`http://localhost:4001/api/todos/${id}`,{
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`,
+              },
+        })
+
+        if(!response.ok){
+            throw new Error("Error while getting response")
+        }
+
+    } catch (error) {
+        throw new Error("Todo not deleted: ", console.error)
+    }
+}
+
 export {
-    fetchTodos
+    fetchTodos,
+    deleteTodo
 }
