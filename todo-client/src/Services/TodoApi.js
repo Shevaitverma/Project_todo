@@ -17,7 +17,23 @@ const fetchTodos = async () => {
     }
 }
 
-// function to update todo 
+// function to update/edit todo
+export const editTodo = async (id, updatedData) => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`http://localhost:4001/api/todos/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedData),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to update todo");
+    }
+    return await response.json();
+  };
+  
 
 
 // Function to delete todo 

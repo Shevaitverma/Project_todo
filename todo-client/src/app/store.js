@@ -18,7 +18,12 @@ const appSlice = createSlice({
       state.todos = action.payload;
     },
     // getTodo: (state, action) => {},
-    // updateTodo: (state, action) => {},
+    updateTodo: (state, action) => {
+      const index = state.todos.findIndex(todo=>todo._id === action.payload._id);
+      if (index !== -1){
+        state.todos[index] = action.payload;
+      }
+    },
     removeTodo: (state, action) => {
       const deletedTodoId = action.payload;
       state.todos = state.todos.filter(todo => todo._id !== deletedTodoId);
@@ -28,7 +33,7 @@ const appSlice = createSlice({
 
 export const {
   addTodo,
-  getTodo,
+  // getTodo,
   getTodos,
   updateTodo,
   removeTodo,
