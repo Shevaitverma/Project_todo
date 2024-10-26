@@ -108,6 +108,7 @@
     ```
 
 3. Access the frontend at `http://localhost:3000` and the backend API at `http://localhost:4001`.
+Note: you need to give your environment variables to the docker-compose file.
 
 ## Contributing
 
