@@ -107,7 +107,7 @@
     docker-compose up --build
     ```
 
-3. Access the frontend at `http://localhost` and the backend API at `http://localhost:4001`.
+3. Access the frontend at `http://localhost:3000` and the backend API at `http://localhost:4001`.
 
 ## Contributing
 
