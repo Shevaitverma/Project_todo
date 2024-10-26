@@ -16,9 +16,9 @@ services:
     environment:
       PORT: 4001
       CORS_ORIGIN: '*'
-      MONGO_URI: mongodb+srv://shevaitverma:962239@db1.j03ljgt.mongodb.net
-      ACCESS_TOKEN_SECRET: bk4wif7hkaew4fghaowb43foai98w4ofiaubew4foia7uw4f
+      MONGO_URI: url
+      ACCESS_TOKEN_SECRET: token
       ACCESS_TOKEN_EXPIRY: 1d
-      REFRESH_TOKEN_SECRET: wi74wgafoibfaouwi6b4fop9a7wbpf9a8wb39pf8bawp93f8
+      REFRESH_TOKEN_SECRET: token
       REFRESH_TOKEN_EXPIRY: 10d
     restart: always
