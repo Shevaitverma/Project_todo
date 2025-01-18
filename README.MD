@@ -101,13 +101,14 @@
 ## Running with Docker
 
 1. Ensure you have Docker and Docker Compose installed.
-2. Navigate to the project directory and run:
+2. You need to add mongo cluster's url to comfigure mongodb.
+3. Navigate to the project directory and run:
 
     ```bash
     docker-compose up --build
     ```
 
-3. Access the frontend at `http://localhost:3000` and the backend API at `http://localhost:4001`.
+4. Access the frontend at `http://localhost:3000` and the backend API at `http://localhost:4001`.
 Note: you need to give your environment variables to the docker-compose file.
 
 ## Contributing
