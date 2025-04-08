@@ -1,16 +1,17 @@
 pipeline {
     agent any
 
-    triggers {
-        githubPush()
-    }
-
     stages {
-        stage('pulling repo') {
+        stage('updating...') {
             steps {
-                git 'https://github.com/Shevaitverma/Project_todo.git'
+                sh 'sudo apt update'
             }
         }
+        // stage(' repo') {
+        //     steps {
+        //         git 'https://github.com/Shevaitverma/Project_todo.git'
+        //     }
+        // }
     }
     post {
         success {
