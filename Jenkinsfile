@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('updating...') {
             steps {
-                sh 'sudo apt update'
+                echo "testing"
             }
         }
         // stage(' repo') {
