@@ -6,9 +6,9 @@ pipeline {
     }
 
     stages {
-        stage('Hello') {
+        stage('pulling repo') {
             steps {
-                echo 'Hello World'
+                git 'https://github.com/Shevaitverma/Project_todo.git'
             }
         }
     }
