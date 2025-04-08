@@ -1,4 +1,4 @@
-# Project Todo - test
+# Project Todo - V1 test
 **Project_todo** is a full-stack application designed for managing user accounts and to-dos. It offers user registration, authentication, and CRUD operations for managing tasks, enabling users to efficiently keep track of their daily activities. The application is built using a modern tech stack with separate frontend and backend components.
 
 ## Table of Contents
