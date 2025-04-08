@@ -7,11 +7,16 @@ pipeline {
                 echo "testing"
             }
         }
-        // stage(' repo') {
-        //     steps {
-        //         git 'https://github.com/Shevaitverma/Project_todo.git'
-        //     }
-        // }
+        stage('test 1...') {
+            steps {
+                echo "testing 1"
+            }
+        }
+        stage('test2...') {
+            steps {
+                echo "testing 2"
+            }
+        }
     }
     post {
         success {
