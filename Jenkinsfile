@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        NVM_DIR = "${HOME}/ubuntu/.nvm"
+        NODE_ENV = 'production'
     }
 
     triggers {
@@ -20,8 +20,8 @@ pipeline {
             steps {
                 dir('todo-client') {
                     sh '''
-                    export NVM_DIR="$HOME/ubuntu/.nvm"
-                    . "$NVM_DIR/nvm.sh"
+                    echo "Installing frontend dependencies..."
+                    node -v
                     npm install
                     '''
                 }
@@ -32,8 +32,7 @@ pipeline {
             steps {
                 dir('todo-client') {
                     sh '''
-                    export NVM_DIR="$HOME/ubuntu/.nvm"
-                    . "$NVM_DIR/nvm.sh"
+                    echo "Building frontend..."
                     npm run build
                     '''
                 }
@@ -54,8 +53,7 @@ pipeline {
             steps {
                 dir('server') {
                     sh '''
-                    export NVM_DIR="$HOME/ubuntu/.nvm"
-                    . "$NVM_DIR/nvm.sh"
+                    echo "Installing backend dependencies..."
                     npm install
                     '''
                 }
@@ -77,12 +75,10 @@ pipeline {
             steps {
                 echo 'Restarting backend Node.js server using PM2...'
                 sh '''
-                export NVM_DIR="$HOME/ubuntu/.nvm"
-                . "$NVM_DIR/nvm.sh"
                 if ! command -v pm2 > /dev/null; then
-                    npm install -g pm2
+                    sudo npm install -g pm2
                 fi
-                pm2 delete all || true
+                pm2 delete backend-server || true
                 pm2 start /var/www/backend/index.js --name backend-server
                 pm2 save
                 '''
