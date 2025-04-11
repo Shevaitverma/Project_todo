@@ -20,6 +20,8 @@ pipeline {
             steps {
                 dir('todo-client') {
                     sh '''
+                    export NVM_DIR="$HOME/.nvm"
+                    . "$NVM_DIR/nvm.sh"
                     npm install
                     '''
                 }
@@ -30,6 +32,8 @@ pipeline {
             steps {
                 dir('todo-client') {
                     sh '''
+                    export NVM_DIR="$HOME/.nvm"
+                    . "$NVM_DIR/nvm.sh"
                     npm run build
                     '''
                 }
@@ -50,6 +54,8 @@ pipeline {
             steps {
                 dir('server') {
                     sh '''
+                    export NVM_DIR="$HOME/.nvm"
+                    . "$NVM_DIR/nvm.sh"
                     npm install
                     '''
                 }
@@ -71,6 +77,8 @@ pipeline {
             steps {
                 echo 'Restarting backend Node.js server using PM2...'
                 sh '''
+                export NVM_DIR="$HOME/.nvm"
+                . "$NVM_DIR/nvm.sh"
                 if ! command -v pm2 > /dev/null; then
                     npm install -g pm2
                 fi
