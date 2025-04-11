@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'agent1'}
 
     environment {
         NODE_ENV = 'production'
