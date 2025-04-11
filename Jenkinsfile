@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        NVM_DIR = "${HOME}/.nvm"
+        NVM_DIR = "${HOME}/ubuntu/.nvm"
     }
 
     triggers {
