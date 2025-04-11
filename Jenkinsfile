@@ -86,7 +86,7 @@ pipeline {
                     sudo npm install -g pm2
                 fi
                 pm2 delete backend-server || true
-                pm2 start ${DEPLOY_BACKEND_DIR}/index.js --name backend-server
+                pm2 start ${DEPLOY_BACKEND_DIR}/src/index.js --name backend-server
                 pm2 save
                 '''
             }
