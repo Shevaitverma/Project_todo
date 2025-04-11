@@ -1,8 +1,13 @@
 pipeline {
-    agent { label 'agent1'}
+    agent {
+        label 'agent1' // Make sure this matches your Jenkins agent label
+    }
 
     environment {
-        NODE_ENV = 'production'
+        FRONTEND_DIR = 'todo-client'
+        BACKEND_DIR = 'server'
+        DEPLOY_FRONTEND_DIR = '/var/www/html'
+        DEPLOY_BACKEND_DIR = '/var/www/backend'
     }
 
     triggers {
@@ -10,6 +15,7 @@ pipeline {
     }
 
     stages {
+
         stage('Checkout Code') {
             steps {
                 git branch: 'main', credentialsId: 'githubToken', url: 'https://github.com/Shevaitverma/Project_todo.git'
@@ -18,11 +24,11 @@ pipeline {
 
         stage('Install Frontend Dependencies') {
             steps {
-                dir('todo-client') {
+                dir("${FRONTEND_DIR}") {
                     sh '''
-                    echo "Installing frontend dependencies..."
-                    node -v
-                    npm install
+                    echo "📦 Installing frontend dependencies..."
+                    npm ci || npm install
+                    ls -la node_modules/vite || echo "❌ Vite not installed!"
                     '''
                 }
             }
@@ -30,9 +36,10 @@ pipeline {
 
         stage('Build Frontend') {
             steps {
-                dir('todo-client') {
+                dir("${FRONTEND_DIR}") {
                     sh '''
-                    echo "Building frontend..."
+                    echo "🔧 Building frontend..."
+                    export PATH=./node_modules/.bin:$PATH
                     npm run build
                     '''
                 }
@@ -41,20 +48,20 @@ pipeline {
 
         stage('Deploy Frontend') {
             steps {
-                echo 'Deploying frontend to production folder...'
+                echo '🚀 Deploying frontend...'
                 sh '''
-                sudo rm -rf /var/www/html/*
-                sudo cp -r todo-client/dist/* /var/www/html/
+                sudo rm -rf ${DEPLOY_FRONTEND_DIR}/*
+                sudo cp -r ${FRONTEND_DIR}/dist/* ${DEPLOY_FRONTEND_DIR}/
                 '''
             }
         }
 
         stage('Install Backend Dependencies') {
             steps {
-                dir('server') {
+                dir("${BACKEND_DIR}") {
                     sh '''
-                    echo "Installing backend dependencies..."
-                    npm install
+                    echo "📦 Installing backend dependencies..."
+                    npm ci || npm install
                     '''
                 }
             }
@@ -62,24 +69,24 @@ pipeline {
 
         stage('Deploy Backend') {
             steps {
-                echo 'Deploying backend to /var/www/backend ...'
+                echo '🚀 Deploying backend...'
                 sh '''
-                sudo mkdir -p /var/www/backend
-                sudo rm -rf /var/www/backend/*
-                sudo cp -r server/* /var/www/backend/
+                sudo mkdir -p ${DEPLOY_BACKEND_DIR}
+                sudo rm -rf ${DEPLOY_BACKEND_DIR}/*
+                sudo cp -r ${BACKEND_DIR}/* ${DEPLOY_BACKEND_DIR}/
                 '''
             }
         }
 
         stage('Restart Backend Service') {
             steps {
-                echo 'Restarting backend Node.js server using PM2...'
+                echo '🔁 Restarting backend using PM2...'
                 sh '''
                 if ! command -v pm2 > /dev/null; then
                     sudo npm install -g pm2
                 fi
                 pm2 delete backend-server || true
-                pm2 start /var/www/backend/index.js --name backend-server
+                pm2 start ${DEPLOY_BACKEND_DIR}/index.js --name backend-server
                 pm2 save
                 '''
             }
