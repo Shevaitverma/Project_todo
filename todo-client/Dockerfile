@@ -1,5 +1,5 @@
 # Build the React vite app
-FROM node:16 AS build
+FROM node:16-slim AS build
 
 WORKDIR /app
 COPY package*.json ./
