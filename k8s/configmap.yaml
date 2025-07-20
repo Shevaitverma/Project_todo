@@ -1,0 +1,20 @@
+# A ConfigMap is a Kubernetes object used to store configuration data (non-sensitive), such as:
+# Environment variables
+# Configuration files
+# Command-line arguments
+# Application settings
+
+# Use a ConfigMap when:
+# You want to make your app dynamic without rebuilding the Docker image.
+# You have non-secret configuration (e.g., NODE_ENV=production, FRONTEND_URL=http://frontend)
+# You want to manage different configurations for dev, staging, and prod.
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  PORT: "4001"
+  CORS_ORIGIN: "*"
+  ACCESS_TOKEN_EXPIRY: "1d"
+  REFRESH_TOKEN_EXPIRY: "10d"
