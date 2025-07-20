@@ -19,3 +19,6 @@ spec:
           image: shevait/todo-frontend
           ports:
             - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: app-config

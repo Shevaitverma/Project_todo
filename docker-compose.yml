@@ -2,13 +2,17 @@ version: '3.8'
 
 services:
   frontend:
+    image: shevait/todo-frontend:dev
     build:
       context: ./todo-client  # the path to your Vite app
+      args:
+        VITE_API_URL: http://localhost:4001
     ports:
       - "3000:80"                         # Expose frontend on port 3000
     restart: always
 
   backend:
+    image: shevait/todo-backend:dev
     build:
       context: ./server  # the path to your Express app
     ports:
@@ -16,9 +20,9 @@ services:
     environment:
       PORT: 4001
       CORS_ORIGIN: '*'
-      MONGO_URI: url
-      ACCESS_TOKEN_SECRET: token
+      MONGO_URI: URI
+      ACCESS_TOKEN_SECRET: 4w9e87fgseo8r7yfgbaoe984w7fbap9w74bfp9a7gw4fp9a8hgw48of7ygawe4f897654321
       ACCESS_TOKEN_EXPIRY: 1d
-      REFRESH_TOKEN_SECRET: token
+      REFRESH_TOKEN_SECRET: 4w9e87fgseo8r7yfgbaoe984w7fbap9w74bfp9a7gw4fp9a4r56yse58gb7899987654321
       REFRESH_TOKEN_EXPIRY: 10d
     restart: always

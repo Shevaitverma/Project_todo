@@ -18,3 +18,4 @@ data:
   CORS_ORIGIN: "*"
   ACCESS_TOKEN_EXPIRY: "1d"
   REFRESH_TOKEN_EXPIRY: "10d"
+  VITE_API_URL: "http://backend.<namespace>.svc.cluster.local:4001"
