@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTodo, setError, clearError } from "../../app/store";
+import { API_ENDPOINTS } from "../../config/api";
 
 const TodoForm = () => {
   const [title, setTitle] = useState("");
@@ -39,7 +40,7 @@ const TodoForm = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:4001/api/todos", {
+      const response = await fetch(API_ENDPOINTS.TODOS, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

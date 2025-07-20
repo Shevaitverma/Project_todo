@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_ENDPOINTS } from "../../config/api";
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -26,7 +27,7 @@ const RegistrationForm = () => {
     setSuccess("");
 
     try {
-      const response = await fetch("http://localhost:4001/api/users/register", {
+      const response = await fetch(API_ENDPOINTS.REGISTER, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

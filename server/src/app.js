@@ -19,6 +19,15 @@ app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));
 app.use(cookieParser());
 
+// Health check endpoint
+app.get("/health", (req, res) => {
+  res.status(200).json({ 
+    status: "OK", 
+    message: "Backend is running",
+    timestamp: new Date().toISOString()
+  });
+});
+
 // importing routes
 import userRouter from "./routes/user.routes.js";
 import todoRouter from "./routes/todo.routes.js";

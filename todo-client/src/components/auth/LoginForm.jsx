@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setIsLogged } from "../../app/store";
 import { useDispatch } from "react-redux";
+import { API_ENDPOINTS } from "../../config/api";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -25,7 +26,7 @@ const LoginForm = () => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:4001/api/users/login", {
+      const response = await fetch(API_ENDPOINTS.LOGIN, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

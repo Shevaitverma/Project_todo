@@ -1,8 +1,10 @@
+import { API_ENDPOINTS } from "../config/api";
+
 // function to fetch todo data 
 const fetchTodos = async () => {
     try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:4001/api/todos", {
+        const response = await fetch(API_ENDPOINTS.TODOS, {
             headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -22,7 +24,7 @@ const fetchTodos = async () => {
 export const editTodo = async (id, updatedData) => {
     try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`http://localhost:4001/api/todos/${id}`, {
+                const response = await fetch(API_ENDPOINTS.TODO_BY_ID(id), {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -45,7 +47,7 @@ export const editTodo = async (id, updatedData) => {
 const deleteTodo = async(id) => {
     try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`http://localhost:4001/api/todos/${id}`,{
+            const response = await fetch(API_ENDPOINTS.TODO_BY_ID(id), {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${token}`,
